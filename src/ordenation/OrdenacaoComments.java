@@ -26,35 +26,39 @@ public class OrdenacaoComments {
             System.out.println("\n=== Processando " + caso + " ===");
             System.out.println("Lendo vídeos do arquivo: " + nomeArquivo);
 
-            List<Video> videos = lerVideos(baseDir + nomeArquivo);
-            if (videos.isEmpty()) {
+            Video[] videos = lerVideos(baseDir + nomeArquivo);
+
+            if (videos.length == 0) {
                 System.out.println("Nenhum vídeo encontrado para " + caso + ", pulando...");
                 continue;
             }
-            System.out.println("Total de vídeos lidos: " + videos.size());
+            System.out.println("Total de vídeos lidos: " + videos.length);
 
-            // // QuickSort
+            // QuickSort
             System.out.println("Ordenando com QuickSort...");
-            List<Video> copiaQuick = new ArrayList<>(videos);
+            Video[] copiaQuick = Arrays.copyOf(videos, videos.length);
+
             long inicioQuick = System.currentTimeMillis();
-            quickSort(copiaQuick, 0, copiaQuick.size() - 1);
+            quickSortArray(copiaQuick, 0, copiaQuick.length - 1);
+
             long fimQuick = System.currentTimeMillis();
             System.out.println("QuickSort (" + caso + ") concluído em " + (fimQuick -
                     inicioQuick) + " ms.");
-            salvarVideos(copiaQuick, pastaSaida + "\\quickSort_" + caso + ".csv");
+            salvarVideos(copiaQuick, pastaSaida + "\\quickSort_" + caso + ".csv"); //
 
-            // // MergeSort
+            // MergeSort
             System.out.println("Ordenando com MergeSort...");
+            Video[] copiaMerge = Arrays.copyOf(videos, videos.length);
             long inicioMerge = System.currentTimeMillis();
-            List<Video> ordenadosMerge = mergeSort(new ArrayList<>(videos));
+            Video[] ordenadosMerge = mergeSort(copiaMerge);
             long fimMerge = System.currentTimeMillis();
             System.out.println("MergeSort (" + caso + ") concluído em " + (fimMerge -
                     inicioMerge) + " ms.");
             salvarVideos(ordenadosMerge, pastaSaida + "\\mergeSort_" + caso + ".csv");
 
-            // // HeapSort
+            // HeapSort
             System.out.println("Ordenando com HeapSort...");
-            List<Video> copiaHeap = new ArrayList<>(videos);
+            Video[] copiaHeap = Arrays.copyOf(videos, videos.length);
             long inicioHeap = System.currentTimeMillis();
             heapSort(copiaHeap);
             long fimHeap = System.currentTimeMillis();
@@ -64,76 +68,73 @@ public class OrdenacaoComments {
 
             // QuickSort com mediana de três
             System.out.println("Ordenando com QuickSort (mediana de 3)...");
-            List<Video> copiaQuick3 = new ArrayList<>(videos);
+            Video[] copiaQuick3 = Arrays.copyOf(videos, videos.length);
             long inicioQuick3 = System.currentTimeMillis();
-            quickSortMedianaDeTres(copiaQuick3, 0, copiaQuick3.size() - 1);
+            quickSortMedianaDeTres(copiaQuick3, 0, copiaQuick3.length - 1);
             long fimQuick3 = System.currentTimeMillis();
             System.out.println(
                     "QuickSort (mediana de 3 - " + caso + ") concluído em " + (fimQuick3 -
                             inicioQuick3) + " ms.");
+
             salvarVideos(copiaQuick3, pastaSaida + "\\quickSortMediana3_" + caso +
                     ".csv");
 
             // Insertion Sort
-            // System.out.println("Ordenando com Insertion Sort...");
-            // List<Video> copiaInsertion = new ArrayList<>(videos);
-            // long inicioInsertion = System.currentTimeMillis();
-            // insertionSort(copiaInsertion);
-            // long fimInsertion = System.currentTimeMillis();
-            // System.out
-            // .println("Insertion Sort (" + caso + ") concluído em " + (fimInsertion -
-            // inicioInsertion) + " ms.");
-            // salvarVideos(copiaInsertion, pastaSaida + "\\insertionSort_" + caso +
-            // ".csv");
+            System.out.println("Ordenando com Insertion Sort...");
+            Video[] copiaInsertion = Arrays.copyOf(videos, videos.length);
+            long inicioInsertion = System.currentTimeMillis();
+            insertionSort(copiaInsertion);
+            long fimInsertion = System.currentTimeMillis();
+            System.out
+                    .println("Insertion Sort (" + caso + ") concluído em " + (fimInsertion -
+                            inicioInsertion) + " ms.");
+            salvarVideos(copiaInsertion, pastaSaida + "\\insertionSort_" + caso +
+                    ".csv");
 
             // Counting Sort
-            // System.out.println("Ordenando com Counting Sort...");
-            // long inicioCounting = System.currentTimeMillis();
-            // List<Video> copiaCounting = new ArrayList<>(videos);
-            // countingSort(copiaCounting);
-            // long fimCounting = System.currentTimeMillis();
-            // System.out.println("Counting Sort (" + caso + ") concluído em " +
-            // (fimCounting - inicioCounting) + " ms.");
-            // salvarVideos(copiaCounting, pastaSaida + "\\countingSort_" + caso + ".csv");
+            System.out.println("Ordenando com Counting Sort...");
+            Video[] copiaCounting = Arrays.copyOf(videos, videos.length);
+            long inicioCounting = System.currentTimeMillis();
+            countingSort(copiaCounting);
+            long fimCounting = System.currentTimeMillis();
+            System.out.println("Counting Sort (" + caso + ") concluído em " +
+                    (fimCounting - inicioCounting) + " ms.");
+            salvarVideos(copiaCounting, pastaSaida + "\\countingSort_" + caso + ".csv");
 
             // Selection Sort
-            // System.out.println("Ordenando com Selection Sort...");
-            // long inicioSelection = System.currentTimeMillis();
-            // List<Video> copiaSelection = new ArrayList<>(videos);
-            // selectionSort(copiaSelection);
-            // long fimSelection = System.currentTimeMillis();
-            // System.out
-            // .println("Selection Sort (" + caso + ") concluído em " + (fimSelection -
-            // inicioSelection) + " ms.");
-            // salvarVideos(copiaSelection, pastaSaida + "\\selectionSort_" + caso +
-            // ".csv");
+            System.out.println("Ordenando com Selection Sort...");
+            long inicioSelection = System.currentTimeMillis();
+            // Cria uma cópia do array de vídeos
+            Video[] copiaSelection = Arrays.copyOf(videos, videos.length);
+            selectionSort(copiaSelection);
+            long fimSelection = System.currentTimeMillis();
+            System.out
+                    .println("Selection Sort (" + caso + ") concluído em " + (fimSelection - inicioSelection) + " ms.");
+            salvarVideos(copiaSelection, pastaSaida + "\\selectionSort_" + caso + ".csv");
 
-            System.out.println("Finalizado processamento de: " + caso);
         }
 
         System.out.println("\n=== Processamento completo! ===");
     }
 
-    private static List<Video> lerVideos(String caminho) {
-        List<Video> videos = new ArrayList<>();
+    private static Video[] lerVideos(String caminho) {
         int totalLidas = 0, ignoradas = 0, validas = 0;
 
+        // Primeira passagem: contar os vídeos válidos
         try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
             br.readLine(); // ignora cabeçalho
             String linha;
             while ((linha = br.readLine()) != null) {
                 totalLidas++;
-                List<String> campos = parseCSVLine(linha);
+                // Aqui, usamos parseCSVLine para separar os campos
+                String[] campos = parseCSVLine(linha);
 
-                if (campos.size() > 10 && !campos.get(10).trim().isEmpty()) {
+                if (campos.length > 10 && !campos[10].trim().isEmpty()) {
                     try {
-                        int commentCount = Integer.parseInt(campos.get(10).trim());
-
-                        String descricao = campos.size() > 14 ? campos.get(14) : "";
+                        String descricao = (campos.length > 14 ? campos[14] : "");
                         String regexCaracteresInvalidos = ".*[\\u00AD\\u200B-\\u200D\\uFEFF\\u2028\\u2029\\u00A0].*";
 
                         if (!descricao.matches(regexCaracteresInvalidos)) {
-                            videos.add(new Video(linha, commentCount));
                             validas++;
                         } else {
                             ignoradas++;
@@ -144,6 +145,7 @@ public class OrdenacaoComments {
                 } else {
                     ignoradas++;
                 }
+
             }
         } catch (IOException e) {
             System.out.println("Erro ao ler arquivo: " + e.getMessage());
@@ -153,31 +155,77 @@ public class OrdenacaoComments {
         System.out.println("Linhas válidas com comment_count: " + validas);
         System.out.println("Linhas ignoradas: " + ignoradas);
 
+        // Cria um array com o tamanho exato dos vídeos válidos
+        Video[] videos = new Video[validas];
+
+        // Segunda passagem: preencher o array com os vídeos válidos
+        int index = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
+            br.readLine(); // ignora cabeçalho
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                String[] campos = parseCSVLine(linha);
+
+                if (campos.length > 10 && !campos[10].trim().isEmpty()) {
+                    try {
+                        int commentCount = Integer.parseInt(campos[10].trim());
+                        String descricao = (campos.length > 14 ? campos[14] : "");
+                        String regexCaracteresInvalidos = ".*[\\u00AD\\u200B-\\u200D\\uFEFF\\u2028\\u2029\\u00A0].*";
+
+                        if (!descricao.matches(regexCaracteresInvalidos)) {
+                            videos[index++] = new Video(linha, commentCount);
+                        }
+                    } catch (NumberFormatException e) {
+                        // Ignora linhas com problemas de formatação numérica
+                    }
+                }
+
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao ler arquivo: " + e.getMessage());
+        }
+
         return videos;
     }
 
-    private static List<String> parseCSVLine(String linha) {
-        List<String> resultado = new ArrayList<>();
-        StringBuilder atual = new StringBuilder();
+    private static String[] parseCSVLine(String linha) {
+        // Primeiro: conta quantos campos existem na linha.
+        // Cada vírgula fora de aspas indica um separador.
+        int fieldCount = 1; // Começa com 1 campo
         boolean dentroDeAspas = false;
-
         for (int i = 0; i < linha.length(); i++) {
             char c = linha.charAt(i);
-
             if (c == '\"') {
                 dentroDeAspas = !dentroDeAspas;
             } else if (c == ',' && !dentroDeAspas) {
-                resultado.add(atual.toString());
+                fieldCount++;
+            }
+        }
+
+        // Cria o array com o número exato de campos
+        String[] resultado = new String[fieldCount];
+        int index = 0;
+        StringBuilder atual = new StringBuilder();
+        dentroDeAspas = false;
+
+        for (int i = 0; i < linha.length(); i++) {
+            char c = linha.charAt(i);
+            if (c == '\"') {
+                dentroDeAspas = !dentroDeAspas;
+            } else if (c == ',' && !dentroDeAspas) {
+                resultado[index++] = atual.toString();
                 atual.setLength(0);
             } else {
                 atual.append(c);
             }
         }
-        resultado.add(atual.toString());
+        // Adiciona o último campo
+        resultado[index] = atual.toString();
+
         return resultado;
     }
 
-    private static void salvarVideos(List<Video> videos, String caminho) {
+    private static void salvarVideos(Video[] videos, String caminho) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
             bw.write(
                     "video_id,trending_date,title,channel_title,category_id,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,comments_disabled,ratings_disabled,video_error_or_removed,description,countries,trending_full_date");
@@ -191,195 +239,268 @@ public class OrdenacaoComments {
         }
     }
 
-    private static void quickSort(List<Video> lista, int inicio, int fim) {
+    private static void quickSortArray(Video[] array, int inicio, int fim) {
         while (inicio < fim) {
-            int p = particionar(lista, inicio, fim);
+            int p = particionarArray(array, inicio, fim);
             if (p - inicio < fim - p) {
-                quickSort(lista, inicio, p - 1);
+                quickSortArray(array, inicio, p - 1);
                 inicio = p + 1;
             } else {
-                quickSort(lista, p + 1, fim);
+                quickSortArray(array, p + 1, fim);
                 fim = p - 1;
             }
         }
     }
 
-    private static int particionar(List<Video> lista, int inicio, int fim) {
+    private static int particionarArray(Video[] array, int inicio, int fim) {
+        // Escolha aleatória do pivô (evita pior caso)
         int pivoIndex = new Random().nextInt(fim - inicio + 1) + inicio;
-        Collections.swap(lista, pivoIndex, fim); // coloca o pivô no fim
 
-        Video pivo = lista.get(fim);
+        // Troca manual do pivô para o fim (sem Collections.swap)
+        Video temp = array[pivoIndex];
+        array[pivoIndex] = array[fim];
+        array[fim] = temp;
+
+        Video pivo = array[fim];
         int i = inicio - 1;
         for (int j = inicio; j < fim; j++) {
-            if (lista.get(j).compareTo(pivo) <= 0) {
+            if (array[j].compareTo(pivo) <= 0) {
                 i++;
-                Collections.swap(lista, i, j);
+                // Troca manual (sem Collections.swap)
+                temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
             }
         }
-        Collections.swap(lista, i + 1, fim);
+
+        // Reposiciona o pivô
+        temp = array[i + 1];
+        array[i + 1] = array[fim];
+        array[fim] = temp;
+
         return i + 1;
     }
 
-    private static List<Video> mergeSort(List<Video> lista) {
-        if (lista.size() <= 1)
-            return lista;
+    private static Video[] mergeSort(Video[] array) {
+        // Caso base: array com 0 ou 1 elemento já está ordenado
+        if (array.length <= 1) {
+            return array;
+        }
 
-        int meio = lista.size() / 2;
-        List<Video> esquerda = mergeSort(new ArrayList<>(lista.subList(0, meio)));
-        List<Video> direita = mergeSort(new ArrayList<>(lista.subList(meio, lista.size())));
+        int meio = array.length / 2;
+        // Cria os arrays para as metades esquerda e direita
+        Video[] esquerda = Arrays.copyOfRange(array, 0, meio);
+        Video[] direita = Arrays.copyOfRange(array, meio, array.length);
 
+        // Ordena recursivamente cada metade
+        esquerda = mergeSort(esquerda);
+        direita = mergeSort(direita);
+
+        // Junta os arrays ordenados e retorna o resultado
         return merge(esquerda, direita);
     }
 
-    private static List<Video> merge(List<Video> esquerda, List<Video> direita) {
-        List<Video> resultado = new ArrayList<>();
-        int i = 0, j = 0;
-        while (i < esquerda.size() && j < direita.size()) {
-            if (esquerda.get(i).compareTo(direita.get(j)) <= 0) {
-                resultado.add(esquerda.get(i++));
+    private static Video[] merge(Video[] esquerda, Video[] direita) {
+        Video[] resultado = new Video[esquerda.length + direita.length];
+        int i = 0, j = 0, k = 0;
+
+        // Mescla os arrays enquanto houver elementos em ambos
+        while (i < esquerda.length && j < direita.length) {
+            if (esquerda[i].compareTo(direita[j]) <= 0) {
+                resultado[k++] = esquerda[i++];
             } else {
-                resultado.add(direita.get(j++));
+                resultado[k++] = direita[j++];
             }
         }
-        resultado.addAll(esquerda.subList(i, esquerda.size()));
-        resultado.addAll(direita.subList(j, direita.size()));
+
+        // Copia os elementos restantes, se houver, de 'esquerda'
+        while (i < esquerda.length) {
+            resultado[k++] = esquerda[i++];
+        }
+
+        // Copia os elementos restantes, se houver, de 'direita'
+        while (j < direita.length) {
+            resultado[k++] = direita[j++];
+        }
+
         return resultado;
     }
 
-    private static void quickSortMedianaDeTres(List<Video> lista, int inicio, int fim) {
-        while (inicio < fim) {
-            int p = particionarMedianaDeTres(lista, inicio, fim);
-            if (p - inicio < fim - p) {
-                quickSortMedianaDeTres(lista, inicio, p - 1);
-                inicio = p + 1;
-            } else {
-                quickSortMedianaDeTres(lista, p + 1, fim);
-                fim = p - 1;
-            }
+    private static void quickSortMedianaDeTres(Video[] array, int inicio, int fim) {
+        // Caso base: se não há elementos ou há apenas um, retorna.
+        if (inicio >= fim) {
+            return;
         }
+
+        // Se o subarray tiver apenas 2 elementos, ordena diretamente.
+        if (fim - inicio + 1 == 2) {
+            if (array[inicio].compareTo(array[fim]) > 0) {
+                swap(array, inicio, fim);
+            }
+            return;
+        }
+
+        // Para subarrays com 3 ou mais elementos, aplica o particionamento com mediana
+        // de três.
+        int p = particionarMedianaDeTres(array, inicio, fim);
+        quickSortMedianaDeTres(array, inicio, p - 1);
+        quickSortMedianaDeTres(array, p + 1, fim);
     }
 
-    private static int particionarMedianaDeTres(List<Video> lista, int inicio, int fim) {
-        int meio = (inicio + fim) / 2;
+    private static int particionarMedianaDeTres(Video[] array, int inicio, int fim) {
+        int meio = inicio + (fim - inicio) / 2;
 
-        Video a = lista.get(inicio);
-        Video b = lista.get(meio);
-        Video c = lista.get(fim);
-
-        int medianaIndex;
-        if ((a.compareTo(b) <= 0 && b.compareTo(c) <= 0) || (c.compareTo(b) <= 0 && b.compareTo(a) <= 0)) {
-            medianaIndex = meio;
-        } else if ((b.compareTo(a) <= 0 && a.compareTo(c) <= 0) || (c.compareTo(a) <= 0 && a.compareTo(b) <= 0)) {
-            medianaIndex = inicio;
-        } else {
-            medianaIndex = fim;
+        // Ordena os três elementos: início, meio e fim.
+        if (array[inicio].compareTo(array[meio]) > 0) {
+            swap(array, inicio, meio);
+        }
+        if (array[inicio].compareTo(array[fim]) > 0) {
+            swap(array, inicio, fim);
+        }
+        if (array[meio].compareTo(array[fim]) > 0) {
+            swap(array, meio, fim);
         }
 
-        Collections.swap(lista, medianaIndex, fim);
+        // Move a mediana (o elemento de valor médio) para a penúltima posição.
+        swap(array, meio, fim - 1);
+        Video pivo = array[fim - 1];
 
-        Video pivo = lista.get(fim);
-        int i = inicio - 1;
-        for (int j = inicio; j < fim; j++) {
-            if (lista.get(j).compareTo(pivo) <= 0) {
-                i++;
-                Collections.swap(lista, i, j);
+        int i = inicio;
+        int j = fim - 1;
+
+        // Particiona o array: elementos menores que o pivô à esquerda, maiores à
+        // direita.
+        while (true) {
+            while (array[++i].compareTo(pivo) < 0) {
+                // Apenas avança i
             }
+            while (array[--j].compareTo(pivo) > 0) {
+                // Apenas recua j
+            }
+            if (i >= j) {
+                break;
+            }
+            swap(array, i, j);
         }
-        Collections.swap(lista, i + 1, fim);
-        return i + 1;
+
+        // Coloca o pivô em sua posição final.
+        swap(array, i, fim - 1);
+        return i;
     }
 
-    private static void insertionSort(List<Video> lista) {
-        for (int i = 1; i < lista.size(); i++) {
-            Video chave = lista.get(i);
+    // Método auxiliar para trocar elementos do array.
+    private static void swap(Video[] array, int i, int j) {
+        Video temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    // Método Insertion Sort trabalhando com array
+    private static void insertionSort(Video[] array) {
+        for (int i = 1; i < array.length; i++) {
+            Video chave = array[i];
             int j = i - 1;
-
-            // Move os elementos maiores que a chave uma posição à frente
-            while (j >= 0 && lista.get(j).compareTo(chave) > 0) {
-                lista.set(j + 1, lista.get(j));
+            // Move os elementos maiores que 'chave' uma posição à frente
+            while (j >= 0 && array[j].compareTo(chave) > 0) {
+                array[j + 1] = array[j];
                 j--;
             }
-            lista.set(j + 1, chave);
+            array[j + 1] = chave;
         }
     }
 
-    private static void countingSort(List<Video> lista) {
-        if (lista.isEmpty())
+    private static void countingSort(Video[] array) {
+        if (array == null || array.length == 0) {
+            
             return;
-
-        // Encontrar o maior valor de commentCount
-        int max = lista.get(0).commentCount;
-        for (Video v : lista) {
-            max = Math.max(max, v.commentCount);
         }
 
-        // Inicializar o array de contagem
-        int[] count = new int[max + 1];
+        int n = array.length;
 
-        // Contar as ocorrências de cada valor
-        for (Video v : lista) {
-            count[v.commentCount]++;
-        }
-
-        // Reconstruir a lista ordenada
-        List<Video> resultado = new ArrayList<>();
-        for (int i = 0; i <= max; i++) {
-            for (int j = 0; j < count[i]; j++) {
-                for (Video v : lista) {
-                    if (v.commentCount == i) {
-                        resultado.add(v);
-                        break;
-                    }
-                }
+        // Encontra o maior valor de commentCount no array
+        int max = array[0].commentCount;
+        for (int i = 1; i < n; i++) {
+            if (array[i].commentCount > max) {
+                max = array[i].commentCount;
             }
         }
 
-        // Atualizar a lista com a ordenação
-        lista.clear();
-        lista.addAll(resultado);
+        // Inicializa o array de contagem
+        int[] count = new int[max + 1];
+        for (int i = 0; i < n; i++) {
+            count[array[i].commentCount]++;
+        }
+
+        // Converte o array de contagem para contagens acumuladas (prefix sum)
+        for (int i = 1; i < count.length; i++) {
+            count[i] += count[i - 1];
+        }
+
+        // Cria um array auxiliar para armazenar o resultado ordenado
+        Video[] output = new Video[n];
+
+        // Preenche o array de saída de forma estável
+        // Itera de trás para frente para garantir a estabilidade
+        for (int i = n - 1; i >= 0; i--) {
+            int index = count[array[i].commentCount] - 1;
+            output[index] = array[i];
+            count[array[i].commentCount]--;
+        }
+
+        // Copia o array ordenado de volta para o array original
+        for (int i = 0; i < n; i++) {
+            array[i] = output[i];
+        }
     }
 
-    private static void selectionSort(List<Video> lista) {
-        int n = lista.size();
+    private static void selectionSort(Video[] array) {
+        int n = array.length;
         for (int i = 0; i < n - 1; i++) {
             int minIndex = i;
             for (int j = i + 1; j < n; j++) {
-                if (lista.get(j).commentCount < lista.get(minIndex).commentCount) {
+                if (array[j].commentCount < array[minIndex].commentCount) {
                     minIndex = j;
                 }
             }
-            // Troca o elemento mínimo com o elemento atual
-            Collections.swap(lista, i, minIndex);
+            // Troca o elemento mínimo com o elemento da posição i
+            swap(array, i, minIndex);
         }
     }
 
-    private static void heapSort(List<Video> lista) {
-        int n = lista.size();
+    private static void heapSort(Video[] array) {
+        int n = array.length;
+
+        // Constrói o heap (rearranja o array)
         for (int i = n / 2 - 1; i >= 0; i--) {
-            heapify(lista, n, i);
+            heapify(array, n, i);
         }
+
+        // Extrai elementos do heap um por um
         for (int i = n - 1; i > 0; i--) {
-            Collections.swap(lista, 0, i);
-            heapify(lista, i, 0);
+            swap(array, 0, i);
+            heapify(array, i, 0);
         }
     }
 
-    private static void heapify(List<Video> lista, int n, int i) {
-        int maior = i;
-        int esquerda = 2 * i + 1;
-        int direita = 2 * i + 2;
+    private static void heapify(Video[] array, int n, int i) {
+        int largest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
 
-        if (esquerda < n && lista.get(esquerda).compareTo(lista.get(maior)) > 0) {
-            maior = esquerda;
+        // Se o filho da esquerda existe e é maior que o nó raiz
+        if (left < n && array[left].compareTo(array[largest]) > 0) {
+            largest = left;
         }
 
-        if (direita < n && lista.get(direita).compareTo(lista.get(maior)) > 0) {
-            maior = direita;
+        // Se o filho da direita existe e é maior que o maior atual
+        if (right < n && array[right].compareTo(array[largest]) > 0) {
+            largest = right;
         }
 
-        if (maior != i) {
-            Collections.swap(lista, i, maior);
-            heapify(lista, n, maior);
+        // Se o maior não é o nó raiz
+        if (largest != i) {
+            swap(array, i, largest);
+            heapify(array, n, largest);
         }
     }
 
