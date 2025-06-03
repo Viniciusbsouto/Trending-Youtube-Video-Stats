@@ -9,10 +9,10 @@ public class OrdenacaoTrendingDate {
 
     public static void main(String[] args) {
         String baseDir = "C:\\Users\\vinic\\OneDrive\\Área de Trabalho\\Projeto Java\\";
-        String pastaSaida = baseDir + "ordenação Datas";
+        String pastaSaida = baseDir + "Ordenação Datas";
 
         new File(pastaSaida).mkdirs();
-
+        
         String[] nomesArquivos = {
                 "Comentarios Ordenados\\videos_T1_comment_count_crescente.csv",
                 "Comentarios Ordenados\\videos_T1_comment_count_decrescente.csv",

@@ -7,7 +7,7 @@ public class OrdenacaoComments {
 
     public static void main(String[] args) {
         String baseDir = "C:\\Users\\vinic\\OneDrive\\Área de Trabalho\\Projeto Java\\";
-        String pastaSaida = baseDir + "ordenação Comments";
+        String pastaSaida = baseDir + "Ordenação Comments";
 
         new File(pastaSaida).mkdirs();
 
