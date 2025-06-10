@@ -16,7 +16,7 @@ public class ordenationComments {
 
     public static void gerarArquivosOrdenados() throws IOException {
         BufferedReader br = new BufferedReader(
-                new FileReader("C:\\Users\\vinic\\OneDrive\\Área de Trabalho\\Projeto Java\\videos_T1.csv"));
+                new FileReader("videos_T1.csv"));
         List<Linha> linhas = new ArrayList<>();
 
         String cabecalho = br.readLine(); // salva o cabeçalho
@@ -58,7 +58,7 @@ public class ordenationComments {
         Arrays.sort(linhasDecrescente, Comparator.comparingInt((Linha l) -> l.commentCount).reversed());
 
         // Criação da pasta de saída
-        File pastaSaida = new File("C:\\Users\\vinic\\OneDrive\\Área de Trabalho\\Projeto Java\\Comentarios Ordenados");
+        File pastaSaida = new File(System.getProperty("user.dir") + File.separator + "Comentarios Ordenados");
         if (!pastaSaida.exists()) {
             pastaSaida.mkdirs();
         }

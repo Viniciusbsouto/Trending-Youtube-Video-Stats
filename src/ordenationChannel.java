@@ -16,7 +16,7 @@ public class ordenationChannel {
 
     public static void gerarArquivosOrdenados() throws IOException {
         BufferedReader br = new BufferedReader(
-                new FileReader("C:\\Users\\vinic\\OneDrive\\Área de Trabalho\\Projeto Java\\videos_T1.csv"));
+                new FileReader("videos_T1.csv"));
         List<Linha> linhas = new ArrayList<>();
 
         String cabecalho = br.readLine(); // salva o cabeçalho
@@ -46,8 +46,7 @@ public class ordenationChannel {
         Arrays.sort(linhasDecrescente, Comparator.comparing((Linha l) -> l.channelTitle.toLowerCase()).reversed());
 
         // Caminho da pasta de saída
-        String pastaSaida = "C:\\Users\\vinic\\OneDrive\\Área de Trabalho\\Projeto Java\\Canais Ordenados";
-
+        String pastaSaida = System.getProperty("user.dir") + File.separator + "Canais Ordenados";
         // Cria a pasta se não existir
         File pasta = new File(pastaSaida);
         if (!pasta.exists()) {

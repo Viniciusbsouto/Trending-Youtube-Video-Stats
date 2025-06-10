@@ -24,7 +24,7 @@ public class ordenationTrendingDate {
 
     public static void ordenarPorTrendingDate() throws IOException {
         BufferedReader br = new BufferedReader(
-                new FileReader("C:\\Users\\vinic\\OneDrive\\Área de Trabalho\\Projeto Java\\videos_T1.csv"));
+                new FileReader("videos_T1.csv"));
         String cabecalho = br.readLine(); // lê o cabeçalho
 
         List<Linha> linhasValidas = new ArrayList<>();
@@ -67,9 +67,10 @@ public class ordenationTrendingDate {
         Arrays.sort(crescentes, Comparator.comparing(l -> l.trendingFullDate));
         Arrays.sort(decrescentes, (a, b) -> b.trendingFullDate.compareTo(a.trendingFullDate));
 
-        File pastaSaida = new File("C:\\Users\\vinic\\OneDrive\\Área de Trabalho\\Projeto Java\\Datas Ordenadas");
-        if (!pastaSaida.exists())
+        File pastaSaida = new File(System.getProperty("user.dir") + File.separator + "Datas Ordenadas");
+        if (!pastaSaida.exists()) {
             pastaSaida.mkdirs();
+        }
 
         escreverArquivo(new File(pastaSaida, "videos_T1_trending_full_date_crescente.csv"), cabecalho, crescentes);
         escreverArquivo(new File(pastaSaida, "videos_T1_trending_full_date_decrescente.csv"), cabecalho, decrescentes);

@@ -6,8 +6,8 @@ import java.util.*;
 public class OrdenacaoChannel {
 
     public static void main(String[] args) {
-        String baseDir = "C:\\Users\\vinic\\OneDrive\\Área de Trabalho\\Projeto Java\\";
-        String pastaSaida = baseDir + "Ordenação Canais";
+        String baseDir = System.getProperty("user.dir") + File.separator;
+        String pastaSaida = baseDir + "Ordenação Canais" + File.separator;
 
         // Cria a pasta de saída se ela não existir
         new File(pastaSaida).mkdirs();

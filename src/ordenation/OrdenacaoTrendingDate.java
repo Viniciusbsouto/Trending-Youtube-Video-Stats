@@ -8,8 +8,8 @@ import java.util.*;
 public class OrdenacaoTrendingDate {
 
     public static void main(String[] args) {
-        String baseDir = "C:\\Users\\vinic\\OneDrive\\Área de Trabalho\\Projeto Java\\";
-        String pastaSaida = baseDir + "Ordenação Datas";
+        String baseDir = System.getProperty("user.dir") + File.separator;
+        String pastaSaida = baseDir + "Ordenação Datas" + File.separator;
 
         new File(pastaSaida).mkdirs();
         
